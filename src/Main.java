@@ -17,15 +17,15 @@ public class Main {
         vladimir.greeting();
 
 
-        Car lada = new Car("Lada", "Granta", 1.7, "желтый", 2015, "Россия");
-        Car audi = new Car("Audi","A8 50 L TDI quattro", 3.0, "черный", 2020, "Германия");
+        Car lada = new Car("Lada", "Granta", 1.7, "желтый", 2015, "Россия", null, null);
+        Car audi = new Car("Audi","A8 50 L TDI quattro", 3.0, "черный", 2020, "Германия", null, null);
         audi.setTransmission("АКПП");
-        Car bmw = new Car("BMW", "Z8", 3.0, "черный", 2015, "Германия");
+        Car bmw = new Car("BMW", "Z8", 3.0, "черный", 2015, "Германия", null, null);
         bmw.setSummerTyres(false);
-        Car kia = new Car("Kia", "Sportage 4-го поколения", 2.4, "красный", 2015, "Южная Корея");
+        Car kia = new Car("Kia", "Sportage 4-го поколения", 2.4, "красный", 2015, "Южная Корея", null, null);
         kia.setRegistrationNumber("м456ее799");
-        Car hyundai = new Car("Hyundai", "Avante", 1.6, "оранжевый", 2015, "Южная Корея");
-        Car suzuki = new Car("Suzuki", "SX4", 0, null, 0, null);
+        Car hyundai = new Car("Hyundai", "Avante", 1.6, "оранжевый", 2015, "Южная Корея", null, null);
+        Car suzuki = new Car("Suzuki", "SX4", 0, null, 0, null, null, null);
 
         Flower rose = new Flower("Роза обыкновенная", null, "Голландия", 35.59, 0);
         Flower chrysanthemum = new Flower("Хризантема", null, null, 15, 5);

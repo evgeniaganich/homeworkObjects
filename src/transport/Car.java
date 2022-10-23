@@ -20,7 +20,7 @@ public class Car {
 
 
     public Car(String brand, String model, double engineVolume,
-               String color, int productionYear, String productionCountry) {
+               String color, int productionYear, String productionCountry, Key key, Insurance insurance) {
 
         if (brand == null) {
             this.brand = "default";
@@ -72,8 +72,8 @@ public class Car {
                 + productionYear + ", страна сборки: " + productionCountry + ", тип кузова: " + bodyType + ", количество мест: "
                 + numberOfPlaces + " , коробка передач: "
                 + transmission + ", номер: " + registrationNumber + ", ключ: "
-                + key.isKeylessAcess() + key.isRemoteStartEngine() +
-                ", страховка: номер " + insurance.number + ", стоимость: " + insurance.cost + ", дата окончания: " + insurance.expireTime);
+                +  (key.isKeylessAcess() ? "с ключом, " : "без ключа, ") + (key.isRemoteStartEngine() ? "удаленный доступ, " : "прямой доступ, ") +
+                "страховка: номер " + insurance.number + ", стоимость: " + insurance.cost + ", дата окончания: " + insurance.expireTime);
     }
 
     public String getBrand() {
@@ -206,18 +206,7 @@ public class Car {
         public boolean isKeylessAcess() {
             return keylessAcess;
         }
-        String keylessAccess = new String();
-   if (isKeylessAccess() true) {
-            keylessAccess = "бесключевой доступ";
-        } else {
-            keylessAccess = "доступ с ключом";
-        }
-        String remoteStartEngine = new String();
-   if (isRemoteStartEngine() == true) {
-            remoteStartEngine = "удаленный запуск двигателя";
-        } else {
-            remoteStartEngine = "запуск двигателя ключом";
-        }
+
     }
     public static class Insurance {
         private final LocalDate expireTime;
