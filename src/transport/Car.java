@@ -21,67 +21,59 @@ public class Car {
 
     public Car(String brand, String model, double engineVolume,
                String color, int productionYear, String productionCountry) {
-        this(
-                brand,
-                model,
-                engineVolume,
-                color,
-                productionYear,
-                productionCountry,
-                "МКПП",
-                "х000хх000",
-                "седан",
-                5,
-                true
-            new Key(),
-            new Insurance()
-        );
-    }
-     if (brand == null) {
-        this.brand = "default";
-    } else {
-        this.brand = brand;
-    }
+
+        if (brand == null) {
+            this.brand = "default";
+        } else {
+            this.brand = brand;
+        }
         if (model == null) {
-        this.model = "default";
-    } else {
-        this.model = model;
-    }
+            this.model = "default";
+        } else {
+            this.model = model;
+        }
         if (productionCountry == null) {
-        this.productionCountry = "default";
-    } else {
-        this.productionCountry = productionCountry;
-    }
+            this.productionCountry = "default";
+        } else {
+            this.productionCountry = productionCountry;
+        }
         if (engineVolume == 0) {
-        this.engineVolume = 1.5;
-    } else {
-        this.engineVolume = engineVolume;
-    }
+            this.engineVolume = 1.5;
+        } else {
+            this.engineVolume = engineVolume;
+        }
         if (color == null) {
-        this.color = "белый";
-    } else {
-        this.color = color;
-    }
+            this.color = "белый";
+        } else {
+            this.color = color;
+        }
         if (productionYear == 0) {
-        this.productionYear = 2020;
-    } else {
-        this.productionYear = productionYear;
-    }
+            this.productionYear = 2020;
+        } else {
+            this.productionYear = productionYear;
+        }
         if (key == null) {
-        this.key = new Key();
-    } else {
-        this.key = key;
-    }
+            this.key = new Key();
+        } else {
+            this.key = key;
+        }
         this.bodyType = "седан";
         this.numberOfPlaces = 5;
         this.transmission = "МКПП";
         this.registrationNumber = "x000xx000";
         this.summerTyres = true;
+        this.key = new Key();
+        this.insurance = new Insurance();
+
+    }
 
     public void printCar() {
-        System.out.println(brand + " " + model + ", объем двигателя: " + engineVolume + ", цвет: " + color + ", год выпуска: " +
-                productionYear + ", страна сборки: " + productionCountry + ", тип кузова: " + bodyType + ", количество мест: " + numberOfPlaces + " , коробка передач: "
-         + transmission + ", номер: " + registrationNumber + ", ключ: " + key + ", страховка: " + insurance);
+        System.out.println(brand + " " + model + ", объем двигателя: " + engineVolume + ", цвет: " + color + ", год выпуска: "
+                + productionYear + ", страна сборки: " + productionCountry + ", тип кузова: " + bodyType + ", количество мест: "
+                + numberOfPlaces + " , коробка передач: "
+                + transmission + ", номер: " + registrationNumber + ", ключ: "
+                + key.isKeylessAcess() + key.isRemoteStartEngine() +
+                ", страховка: номер " + insurance.number + ", стоимость: " + insurance.cost + ", дата окончания: " + insurance.expireTime);
     }
 
     public String getBrand() {
@@ -204,7 +196,7 @@ public class Car {
             this.keylessAcess = keylessAcess;
         }
         public Key() {
-            this(false,false)
+            this(false,false);
         }
 
         public boolean isRemoteStartEngine() {
@@ -213,6 +205,18 @@ public class Car {
 
         public boolean isKeylessAcess() {
             return keylessAcess;
+        }
+        String keylessAccess = new String();
+   if (isKeylessAccess() true) {
+            keylessAccess = "бесключевой доступ";
+        } else {
+            keylessAccess = "доступ с ключом";
+        }
+        String remoteStartEngine = new String();
+   if (isRemoteStartEngine() == true) {
+            remoteStartEngine = "удаленный запуск двигателя";
+        } else {
+            remoteStartEngine = "запуск двигателя ключом";
         }
     }
     public static class Insurance {
@@ -234,7 +238,7 @@ public class Car {
             }
         }
         public Insurance() {
-            this(null, 10000, null)
+            this(null, 10000, null);
         }
 
         public LocalDate getExpireTime() {
