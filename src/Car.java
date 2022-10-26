@@ -1,59 +1,30 @@
-package transport;
-
 import java.time.LocalDate;
-
-public class Car {
-    private final String brand;
-    private final String model;
+public class Car extends Transport {
     private double engineVolume;
-
-    private String color;
-    private final int productionYear;
-    private final String productionCountry;
     private String transmission;
     private final String bodyType;
     private String registrationNumber;
     private final int numberOfPlaces;
     private boolean summerTyres;
-    private Key key;
-    private Insurance insurance;
+    private Car.Key key;
+    private Car.Insurance insurance;
+
+    private boolean electroCar;
+
+    private String fuel;
 
 
     public Car(String brand, String model, double engineVolume,
-               String color, int productionYear, String productionCountry, Key key, Insurance insurance) {
+               String color, int productionYear, int maxSpeed, String productionCountry, Car.Key key, Car.Insurance insurance) {
+        super(brand, model, productionYear, color, productionCountry, maxSpeed);
 
-        if (brand == null) {
-            this.brand = "default";
-        } else {
-            this.brand = brand;
-        }
-        if (model == null) {
-            this.model = "default";
-        } else {
-            this.model = model;
-        }
-        if (productionCountry == null) {
-            this.productionCountry = "default";
-        } else {
-            this.productionCountry = productionCountry;
-        }
         if (engineVolume == 0) {
             this.engineVolume = 1.5;
         } else {
             this.engineVolume = engineVolume;
         }
-        if (color == null) {
-            this.color = "белый";
-        } else {
-            this.color = color;
-        }
-        if (productionYear == 0) {
-            this.productionYear = 2020;
-        } else {
-            this.productionYear = productionYear;
-        }
         if (key == null) {
-            this.key = new Key();
+            this.key = new Car.Key();
         } else {
             this.key = key;
         }
@@ -62,35 +33,36 @@ public class Car {
         this.transmission = "МКПП";
         this.registrationNumber = "x000xx000";
         this.summerTyres = true;
-        this.key = new Key();
-        this.insurance = new Insurance();
+        this.key = new Car.Key();
+        this.insurance = new Car.Insurance();
+        this.electroCar = false;
 
+    }
+    public Car(String brand, String model, double engineVolume,
+               String color, int productionYear, int maxSpeed, String productionCountry, Car.Key key, Car.Insurance insurance, String fuel) {
+        this (brand, model, engineVolume, color, productionYear, maxSpeed, productionCountry, key, insurance);
+        this.electroCar = false;
+        String fuelType1 = "бензин";
+        String fuelType2 = "дизель";
+        if (fuel == null || fuel.isEmpty() || fuel.isBlank()) {
+            this.fuel = "бензин";
+        } else {
+            this.fuel = fuel;
+        }
+        if (!this.fuel.equals(fuelType1) && ! this.fuel.equals(fuelType2)) {
+            this.fuel = "неизвестный вид";
+        }
     }
 
     public void printCar() {
-        System.out.println(brand + " " + model + ", объем двигателя: " + engineVolume + ", цвет: " + color + ", год выпуска: "
-                + productionYear + ", страна сборки: " + productionCountry + ", тип кузова: " + bodyType + ", количество мест: "
+        System.out.println(getBrand() + " " + getModel() + ", объем двигателя: " + engineVolume + ", цвет: " + getColor() + ", год выпуска: "
+                + getProductionYear() + ", страна сборки: " + getProductionCountry() + ", тип кузова: " + bodyType + ", количество мест: "
                 + numberOfPlaces + " , коробка передач: "
                 + transmission + ", номер: " + registrationNumber + ", ключ: "
                 +  (key.isKeylessAcess() ? "с ключом, " : "без ключа, ") + (key.isRemoteStartEngine() ? "удаленный доступ, " : "прямой доступ, ") +
                 "страховка: номер " + insurance.number + ", стоимость: " + insurance.cost + ", дата окончания: " + insurance.expireTime);
     }
 
-    public String getBrand() {
-        return brand;
-    }
-
-    public String getModel() {
-        return model;
-    }
-
-    public int getProductionYear() {
-        return productionYear;
-    }
-
-    public String getProductionCountry() {
-        return productionCountry;
-    }
 
     public String getBodyType() {
         return bodyType;
@@ -106,19 +78,6 @@ public class Car {
 
     public void setEngineVolume(double engineVolume) {
         this.engineVolume = engineVolume;
-    }
-
-    public String getColor() {
-        return color;
-    }
-
-
-    public void setCarColor(String color) {
-        if (color == null) {
-            this.color = "белый";
-        } else {
-            this.color = color;
-        }
     }
 
     public String getTransmission() {
@@ -153,19 +112,19 @@ public class Car {
         this.summerTyres = summerTyres;
     }
 
-    public Key getKey() {
+    public Car.Key getKey() {
         return key;
     }
 
-    public void setKey(Key key) {
+    public void setKey(Car.Key key) {
         this.key = key;
     }
 
-    public Insurance getInsurance() {
+    public Car.Insurance getInsurance() {
         return insurance;
     }
 
-    public void setInsurance(Insurance insurance) {
+    public void setInsurance(Car.Insurance insurance) {
         this.insurance = insurance;
     }
 
@@ -182,11 +141,52 @@ public class Car {
             return false;
         }
         if (!Character.isDigit(chars[1]) || !Character.isDigit(chars[2]) || !Character.isDigit(chars[3]) || !Character.isAlphabetic(chars[6])
-        || !Character.isAlphabetic(chars[7]) || !Character.isAlphabetic(chars[8])) {
+                || !Character.isAlphabetic(chars[7]) || !Character.isAlphabetic(chars[8])) {
             return false;
         }
         return true;
     }
+
+    public boolean isElectroCar() {
+        return electroCar;
+    }
+
+    public String getFuel() {
+        return fuel;
+    }
+
+    public void setFuel(String fuel) {
+        String fuelType1 = "бензин";
+        String fuelType2 = "дизель";
+        if (fuel == null || fuel.isEmpty() || fuel.isBlank()) {
+            this.fuel = "бензин";
+        } else {
+            this.fuel = fuel;
+        }
+        if (!this.fuel.equals(fuelType1) && ! this.fuel.equals(fuelType2)) {
+            this.fuel = "неизвестный вид";
+        }
+    }
+
+    @Override
+    public void refill() {
+        String fuelType1 = "бензин";
+        String fuelType2 = "дизель";
+        if (fuel == null || fuel.isEmpty() || fuel.isBlank()) {
+            this.fuel = "бензин";
+        } else {
+            this.fuel = fuel;
+        }
+        if (!this.fuel.equals(fuelType1) && ! this.fuel.equals(fuelType2)) {
+            this.fuel = "неизвестный вид";
+        }
+        if (electroCar == false) {
+            System.out.println("заправляюсь на заправке, вид топлива: " + fuel);
+        } else {
+            System.out.println("зарядка на специальной электропарковке");
+        }
+    }
+
     public static class  Key {
         private final boolean remoteStartEngine;
         private final boolean keylessAcess;
@@ -253,11 +253,3 @@ public class Car {
         }
     }
 }
-
-
-
-
-
-
-
-
